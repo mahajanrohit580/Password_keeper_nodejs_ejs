@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('header'); %>
+  </head>
+  <body>
+           <center><h1>Password Management System</h1></center>
+    <h1><%= mgs %></h1> <button><a href="/logout">Logout</a></button> <b><%= useris %></b>
+    <% if(editerr !==''){ %>
+        <center><p><%= editerr %></p></center>
+        <% } %>
+    <div class="container">
+      <form method="POST" action="/viewdetailsup">
+        <br>
+        <input type="hidden" name="dataid" value="<%= editdata._id %>">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Enter Category/Domin</label>  <br>
+      <input type="text" name="updname" value="<%= editdata.catagoryname %>" class="form-control" placeholder="Enter the Category" required><br>
+      <label for="inputEmail3" class="col-sm-2 col-form-label">Enter Project Name</label>  <br>
+      <input type="text" name="upprojectname" value="<%= editdata.projectname %>" class="form-control" placeholder="Enter the Category" required><br>
+      <label for="inputEmail3" class="col-sm-2 col-form-label">Enter the Password</label>  
+     <br>
+      <div class="form-group">
+        <div class="col-md-9">
+            <textarea class="form-control" id="editor" name="uppwd" rows="5" placeholder="Enter Your Password Details"><%- editdata.passworddetails %></textarea>
+        </div> 
+      </div>   
+      <br>
+       <br>
+        <button type="submit"  class="btn btn-success">Update</button>
+        <p>Back to : <a href="/viewdetails">Viewdetails</a> </p>
+      </form>
+    </div> <!-- /container -->
+    <script>
+      CKEDITOR.replace( 'editor' );
+  </script> 
+      <%- include('footer'); %>
+  </body>
+</html>

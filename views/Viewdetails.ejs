@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('header'); %>
+</head>
+  <body>
+           <center><h1>Password Management System</h1></center>
+    <h1><%= mgs %></h1><button><a href="/logout">Logout</a></button>   <b><%= useris %></b>  
+    <% if(del !== ''){ %>
+    <center><p><%= del %></p></center>
+    <% } %>
+    <form>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Password Category  
+                <button type="button" class="btn btn-success"><a href="/addpassword">Add Password</a></button>
+              </th> 
+              <th scope="col">Project Name</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(records.length > 0){ %>
+                <% records.forEach(function(data){ %>
+              <tr>
+                <th scope="row">#</th>
+                <td><%= data.catagoryname %></td>
+                <td><%= data.projectname %></td>
+                <td>
+                    <!-- popover -->
+                  <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal<%= data._id %>"><i class="fa fa-eye"></i></button>&nbsp;
+                  <button type="button" class="btn btn-primary"><a href="/viewdetailsedit/<%= data._id %>"><p style="color: red">Edit</p></a></button>&nbsp;
+                  <button type="button" class="btn btn-danger "><a href="/viewdetaildelete/<%= data._id %>" onclick="return confirm('Are you sure to Delete..??');">Delete</a></button>&nbsp;
+                </td>
+           
+              </tr>
+
+                    <!-- Modal -->
+  <div class="modal fade" id="myModal<%= data._id %>" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><%= data.projectname %></h4>
+        </div>
+        <div class="modal-body">
+            <%- data.passworddetails %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+              <% }) %>
+              <% }
+              else{%>
+                <tr>
+                  <td colspan="5">NO RecordFound....!!</td>
+              </tr><% } %>
+            </tbody>
+          </table>
+          <!-- pagination -->
+          <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (current == 1) { %>
+                    <li class="disabled"><a>First</a></li>
+                <% } else { %>
+                    <li><a href="/viewdetails/1">First</a></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="disabled"><a>...</a></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                    <% if (i == current) { %>
+                        <li class="active"><a><%= i %></a></li>
+                    <% } else { %>
+                        <li><a href="/viewdetails/<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(current) + 4 && i < pages) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (current == pages) { %>
+                    <li class="disabled"><a>Last</a></li>
+                <% } else { %>
+                    <li><a href="/viewdetails/<%= pages %>">Last</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+        
+
+          Back To Dashboard : <a href="/passwordcategoryview">back</a>
+    </form>
+    <%- include('footer'); %>
+  </body>
+</html>

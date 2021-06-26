@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('header'); %>
+  </head>
+  <body>
+           <center><h1>Password Management System</h1></center>
+    <h1><%= mgs %></h1> <button><a href="/logout">Logout</a></button> <b><%= useris %></b>
+    <% if(editerr !==''){ %>
+        <center><p><%= editerr %></p></center>
+        <% } %>
+    <div class="container">
+      <form method="POST" action="/update"  >
+        <br>
+        <input type="hidden" name="dataid" value="<%= editdata._id %>">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Enter Category/Domin</label>  
+      <input type="text" name="updname" value="<%= editdata.catagoryname %>" class="form-control" placeholder="Enter the Category" required>
+<br>
+       <br>
+        <button type="submit"  class="btn btn-success">Update</button>
+        <p>Back to : <a href="/passwordcategoryview">ViewCategory</a> </p>
+      </form>
+    </div> <!-- /container -->
+    <%- include('footer'); %>
+  </body>
+</html>
